@@ -1,8 +1,10 @@
 import React from "react";
 import Styled from "styled-components";
 
-import { Caption, Icon, MediaCard, Modal } from "@shopify/polaris";
+import { Caption, Button, MediaCard, Modal } from "@shopify/polaris";
 import { HeartMajor } from "@shopify/polaris-icons";
+
+import { collection, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 const Container = Styled.div`
     padding-bottom: 200px;
@@ -12,48 +14,44 @@ const ContentContainer = Styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    background-color: red;
     height: 2.5em;
     margin: 1em 1em 2em 1em;
 `;
 
-export default function PostContainer({title, caption, description, imageUrl, date}) {
+export default function PostContainer({element, db}) {
     const [isModalActive, setModalActive] = React.useState(false);
+    const [likes, setLikes] = React.useState(element.likes);
 
     const Popup = (
         <Modal
-            key={`${imageUrl}-modal`}
+            key={`${element.url}-modal`}
             open={isModalActive}
-
-            title="Reach more shoppers with Instagram product tags"
-            primaryAction={{
-                content: "Add Instagram",
-                // onAction: handleChange,
-            }}
-            secondaryActions={[
-                {
-                    content: "Learn more",
-                    // onAction: handleChange,
-                },
-            ]}
-        />
+            title={`${element.title} - ${element.date}`}
+            onClose={() => setModalActive(false)}
+        >
+            <p>{element.explanation}</p>
+        </Modal>
     );
     
     return (
         <Container>
-            {/* <Popup/> */}
+            {Popup}
             <MediaCard
-                title={title}
-                description={caption}
-                key={`${imageUrl}-card`}
+                title={`${element.title} - ${element.date}`}
+                description={element.caption}
+                key={`${element.url}-card`} 
                 portrait={true}
                 primaryAction={
-                    { content: "Open", onAction: () => {} }   
+                    { content: "Open", onAction: () => {setModalActive(true);} }   
+                }
+
+                secondaryAction={
+                    { content: `Like | ${element.likes}`, onAction: () => handleLike(element, setLikes, db), icon: HeartMajor }
                 }
             >
                 <img
-                    src={imageUrl}
-                    alt={title}
+                    src={element.url}
+                    alt={element.title}
                     onClick={() => {setModalActive(true);}}
                     width="100%"
                     height="100%"
@@ -63,16 +61,21 @@ export default function PostContainer({title, caption, description, imageUrl, da
                         cursor: "pointer"
                     }}
                 />
-                <ContentContainer>
-                    <Caption>{date}</Caption>
-                    <Icon source={HeartMajor} color="success" onClick={handleLike}/>
-                </ContentContainer>
             </MediaCard>
         </Container>
     );
 }
 
-const handleLike = () => {
-    console.log("click");
+const handleLike = async (element, setLikes, db) => {
+    const colRef = collection(db, "posts");
+    const docRef = doc(colRef, "likes");
+    const docSnap = await getDoc(docRef);
+    const likes = docSnap.data();
 
+    const id = element.date;
+    likes[id] = likes[id] + 1;
+    element.likes = likes[id];
+
+    setLikes(element.likes);
+    await setDoc(docRef, likes);
 };

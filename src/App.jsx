@@ -34,10 +34,11 @@ export default function App() {
             for(const element of json) {
                 const id = element.date;
                 if(!likes[id])
-                    likes[id] = 1;
+                    likes[id] = 0;
 
+                element.likes = likes[id];
             }
-            
+
             await setDoc(docRef, likes);
             setData(json);
             setLoading(false);
@@ -65,16 +66,13 @@ export default function App() {
  * 
  */
 const generatePost = (element) => {
-    const caption = element.explanation.length > 200 ?
-        element.explanation.substring(0, 100) + "..." : element.explanation;
+    const caption = element.explanation.length > 300 ?
+        element.explanation.substring(0, 300) + "..." : element.explanation;
 
     return (
         <PostContainer
-            title={element.title}
-            caption={caption}
-            description={element.explanation}
-            imageUrl={element.url}
-            date={element.date}
+            element={element}
+            db={db}
         />
     );
 };
