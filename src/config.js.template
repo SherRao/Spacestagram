@@ -1,9 +1,0 @@
-export default {
-    firebaseConfig: {
-        apiKey: "",
-        authDomain: "",
-        projectId: ""
-    },
-
-    nasaApiKey: ""
-};
