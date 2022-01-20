@@ -1,6 +1,6 @@
-import React from 'react';
-import Styled from 'styled-components';
-import ParticlesBg from 'particles-bg'
+import React from "react";
+import Styled from "styled-components";
+import ParticlesBg from "particles-bg";
 
 const Container = Styled.div`
     width: 100%;
@@ -15,4 +15,4 @@ export default function AppContainer({children}) {
             {children}
         </Container>
     );
-};
+}

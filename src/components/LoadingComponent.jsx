@@ -1,6 +1,6 @@
-import React from 'react';
-import Styled from 'styled-components';
-import { Rings } from  'react-loader-spinner'
+import React from "react";
+import Styled from "styled-components";
+import { Rings } from  "react-loader-spinner";
 
 const Container = Styled.div`
     position: fixed;

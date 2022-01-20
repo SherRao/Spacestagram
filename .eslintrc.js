@@ -18,6 +18,8 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "react/prop-types": 0,
+        "no-unused-vars": "warn",
         "indent": [
             "error",
             4

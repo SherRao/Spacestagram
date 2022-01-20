@@ -1,8 +1,8 @@
-import React from 'react';
-import Styled from 'styled-components';
+import React from "react";
+import Styled from "styled-components";
 
-import { Caption, Icon, Layout, MediaCard, Modal } from '@shopify/polaris';
-import { HeartMajor } from '@shopify/polaris-icons';
+import { Caption, Icon, MediaCard, Modal } from "@shopify/polaris";
+import { HeartMajor } from "@shopify/polaris-icons";
 
 const Container = Styled.div`
     padding-bottom: 200px;
@@ -27,12 +27,12 @@ export default function PostContainer({title, caption, description, imageUrl, da
 
             title="Reach more shoppers with Instagram product tags"
             primaryAction={{
-                content: 'Add Instagram',
+                content: "Add Instagram",
                 // onAction: handleChange,
             }}
             secondaryActions={[
                 {
-                    content: 'Learn more',
+                    content: "Learn more",
                     // onAction: handleChange,
                 },
             ]}
@@ -48,18 +48,18 @@ export default function PostContainer({title, caption, description, imageUrl, da
                 key={`${imageUrl}-card`}
                 portrait={true}
                 primaryAction={
-                    { content: 'Open', onAction: () => {} }   
+                    { content: "Open", onAction: () => {} }   
                 }
             >
                 <img
                     src={imageUrl}
                     alt={title}
-                    onClick={() => {setModalActive(true)}}
+                    onClick={() => {setModalActive(true);}}
                     width="100%"
                     height="100%"
                     style={{
-                        objectFit: 'cover',
-                        objectPosition: 'center',
+                        objectFit: "cover",
+                        objectPosition: "center",
                         cursor: "pointer"
                     }}
                 />

@@ -11,4 +11,4 @@ comprehsive list of libraries used.
 ## UI
 * This project used the [Polaris React Component Library](https://github.com/Shopify/polaris-react) to create the User Interface.
 
-* The colour palete can be found [here]!(https://coolors.co/012a36-29274c-7e52a0-d295bf)
+* The colour palete can be found [here](https://coolors.co/012a36-29274c-7e52a0-d295bf)!

@@ -1,6 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
-import { Caption, DisplayText } from "@shopify/polaris";
+import { DisplayText } from "@shopify/polaris";
 
 const Container = Styled.div`
     height: 20vh;
@@ -23,11 +23,6 @@ export default function Header() {
             >
                     🌙 SPACESTGRAM
             </DisplayText>
-            <Caption>
-                <a href="https://sherrao.tech" target="_blank" rel="noreferrer" >
-                    Made by Nausher Rao
-                </a>
-            </Caption>
         </Container>
     );
 }

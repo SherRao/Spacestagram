@@ -6,28 +6,28 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-import { AppProvider } from '@shopify/polaris';
-import enTranslations from '@shopify/polaris/locales/en.json';
+import { AppProvider } from "@shopify/polaris";
+import enTranslations from "@shopify/polaris/locales/en.json";
 
 const theme = {
     colors: {
-      surface: '#',
-      onSurface: '#',
-      interactive: '#',
-      secondary: '#',
-      primary: '#',
-      critical: '#',
-      warning: '#',
-      highlight: '#',
-      success: '#29274c',
-      decorative: '#',
+        surface: "#",
+        onSurface: "#",
+        interactive: "#",
+        secondary: "#",
+        primary: "#",
+        critical: "#",
+        warning: "#",
+        highlight: "#",
+        success: "#29274c",
+        decorative: "#",
     },
-    colorScheme: 'dark'
+    colorScheme: "dark"
 };
 
 ReactDOM.render(
     <AppProvider i18n={enTranslations} theme={theme}>
         <App />
     </AppProvider>,
-  document.getElementById('root')
+    document.getElementById("root")
 );
