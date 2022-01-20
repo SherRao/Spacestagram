@@ -71,6 +71,7 @@ const generatePost = (element) => {
 
     return (
         <PostContainer
+            caption={caption}
             element={element}
             db={db}
         />

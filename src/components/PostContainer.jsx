@@ -1,24 +1,23 @@
 import React from "react";
 import Styled from "styled-components";
 
-import { Caption, Button, MediaCard, Modal } from "@shopify/polaris";
+import { MediaCard, Modal } from "@shopify/polaris";
 import { HeartMajor } from "@shopify/polaris-icons";
 
-import { collection, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 const Container = Styled.div`
     padding-bottom: 200px;
 `;
 
-const ContentContainer = Styled.div`
+const ModalContainer = Styled.div`
+    padding: 20px 20px 20px 20px;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    align-items: start;
-    height: 2.5em;
-    margin: 1em 1em 2em 1em;
 `;
 
-export default function PostContainer({element, db}) {
+export default function PostContainer({caption, element, db}) {
     const [isModalActive, setModalActive] = React.useState(false);
     const [likes, setLikes] = React.useState(element.likes);
 
@@ -28,40 +27,48 @@ export default function PostContainer({element, db}) {
             open={isModalActive}
             title={`${element.title} - ${element.date}`}
             onClose={() => setModalActive(false)}
+            alt={element.explanation}
         >
-            <p>{element.explanation}</p>
+            <ModalContainer>
+                <img src={element.url} width="50%" height="50%" />
+                <p>{element.explanation}</p>
+            </ModalContainer>
         </Modal>
+    );
+
+    const Card = (
+        <MediaCard
+            title={`${element.title} - ${element.date}`}
+            description={caption}
+            key={`${element.url}-card`} 
+            portrait={true}
+            primaryAction={
+                { content: "Open", onAction: () => {setModalActive(true);} }   
+            }
+
+            secondaryAction={
+                { content: `Like | ${likes}`, onAction: () => handleLike(element, setLikes, db), icon: HeartMajor }
+            }
+        >
+            <img
+                src={element.url}
+                alt={element.title}
+                onClick={() => {setModalActive(true);}}
+                width="100%"
+                height="100%"
+                style={{
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    cursor: "pointer"
+                }}
+            />
+        </MediaCard>
     );
     
     return (
         <Container>
             {Popup}
-            <MediaCard
-                title={`${element.title} - ${element.date}`}
-                description={element.caption}
-                key={`${element.url}-card`} 
-                portrait={true}
-                primaryAction={
-                    { content: "Open", onAction: () => {setModalActive(true);} }   
-                }
-
-                secondaryAction={
-                    { content: `Like | ${element.likes}`, onAction: () => handleLike(element, setLikes, db), icon: HeartMajor }
-                }
-            >
-                <img
-                    src={element.url}
-                    alt={element.title}
-                    onClick={() => {setModalActive(true);}}
-                    width="100%"
-                    height="100%"
-                    style={{
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        cursor: "pointer"
-                    }}
-                />
-            </MediaCard>
+            {Card}
         </Container>
     );
 }
