@@ -40,7 +40,7 @@ export default function App() {
             }
 
             await setDoc(docRef, likes);
-            setData(json);
+            setData(json.reverse());
             setLoading(false);
         };
 
